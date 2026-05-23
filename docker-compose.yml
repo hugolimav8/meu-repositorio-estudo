@@ -1,4 +1,3 @@
-asiaad
 services:
   jenkins:
     image: jenkins/jenkins:lts
