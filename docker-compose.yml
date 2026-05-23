@@ -1,1 +1,25 @@
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins-server
+    privileged: true
+    user: root
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - ./jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock # Permite que o Jenkins use o Docker do host
+    restart: unless-stopped
 
+  api-pagamentos:
+    image: api-pagamentos:latest
+    container_name: api-pagamentos-prod
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./meu-projeto:/usr/src/app # Mapeia sua pasta de código para dentro do container
+    restart: unless-stopped
+
+volumes:
+  jenkins_home:
